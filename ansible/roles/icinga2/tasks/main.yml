@@ -1,0 +1,57 @@
+---
+
+- name: Instalar apt-transport-https
+  apt:
+    name: apt-transport-https
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Instalar clave repositorio icinga2
+  apt_key:
+    url: https://packages.icinga.com/icinga.key
+    state: present
+
+- name: Instalar repositorio icinga2
+  apt_repository:
+    repo: "deb https://packages.icinga.com/{{ ansible_distribution | lower }} icinga-{{ ansible_distribution_release }} main"
+    state: present
+
+- name: Instalar icinga2
+  apt:
+    name: icinga2,monitoring-plugins
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Habilitar subsistema api de icinga2
+  shell: icinga2 api setup
+  changed_when: false
+
+- name: Configurar acceso api
+  blockinfile:
+    path: /etc/icinga2/conf.d/api-users.conf
+    marker: "/* {mark} ANSIBLE BLOCK */"
+    content: |
+      object ApiUser "{{ icinga2_user }}" {
+        password = "{{ icinga2_pass }}"
+        permissions = [ "*" ]
+      }
+
+- name: Reiniciar servicio icinga2
+  systemd:
+    name: icinga2
+    enabled: yes
+    state: restarted
+
+- name: Guardar datos de acceso en "{{ ansible_hostname }}.icinga2"
+  delegate_to: localhost
+  become: no
+  copy:
+    dest: "{{ ansible_hostname }}.icinga2"
+    content: |
+      ############################
+      DATOS API
+      ############################
+      Usuario:  {{ icinga2_user }}
+      Password: {{ icinga2_pass }}

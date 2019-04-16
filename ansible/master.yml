@@ -1,0 +1,7 @@
+---
+
+- name: Configura el servidor Icinga2
+  hosts: master
+  become: yes
+  roles:
+    - icingaweb2
