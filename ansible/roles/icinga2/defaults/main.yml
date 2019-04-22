@@ -1,0 +1,4 @@
+---
+
+icinga2_user: api_user
+icinga2_pass: 12345678

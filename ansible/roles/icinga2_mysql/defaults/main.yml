@@ -1,0 +1,5 @@
+---
+
+icinga2_mysql_db: icinga2
+icinga2_mysql_user: icinga2
+icinga2_mysql_pass: Icinga_2

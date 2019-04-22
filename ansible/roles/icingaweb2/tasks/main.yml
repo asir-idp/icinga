@@ -1,0 +1,65 @@
+---
+
+- name: Instalar servicio web
+  apt:
+    name: apache2,icingaweb2,icingacli,libapache2-mod-php
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Crear la base de datos
+  mysql_db:
+    name: "{{ icingaweb2_db }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present
+
+- name: Crear usuario
+  mysql_user:
+    name: "{{ icingaweb2_user }}"
+    password: "{{ icingaweb2_pass }}"
+    host: localhost
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    priv: "{{ icingaweb2_db }}.*:ALL"
+
+- name: Comprobar si ya hay un token
+  stat:
+    path: /etc/icingaweb2/setup.token
+  register: token_file
+
+- name: Generar token de configuracion
+  shell: icingacli setup token create
+  become_user: www-data
+  become: yes
+  when: not token_file['stat']['exists']
+
+- name: Obtener el token
+  slurp:
+    src: /etc/icingaweb2/setup.token
+  register: token
+
+- name: Configurar timezone de PHP
+  lineinfile:
+    path: "/etc/php/{{ icingaweb2_php_version }}/apache2/php.ini"
+    regexp: '^;?date.timezone ='
+    line: 'date.timezone = "UTC"'
+
+- name: Reiniciar servicio apache2
+  systemd:
+    name: apache2
+    enabled: yes
+    state: restarted
+
+- name: Guardar datos de acceso en "{{ ansible_hostname }}.icingaweb2"
+  delegate_to: localhost
+  become: no
+  copy:
+    dest: "{{ ansible_hostname }}.icingaweb2"
+    content: |
+      ############################
+      DATOS INTERFAZ WEB
+      ############################
+      URL:        http://{{ ansible_default_ipv4['address'] }}/icingaweb2
+      Token:      {{ token['content'] | b64decode }}
+      DB:         {{ icingaweb2_db }}
+      Usuario:    {{ icingaweb2_user }}
+      Contraseña: {{ icingaweb2_pass }}

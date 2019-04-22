@@ -1,0 +1,73 @@
+---
+
+- name: Instalar mysql
+  apt:
+    name: mysql-client,mysql-server,python-pymysql
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Instalar driver mysql de icinga2
+  apt:
+    name: icinga2-ido-mysql
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Crear la base de datos
+  mysql_db:
+    name: "{{ icinga2_mysql_db }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present
+
+- name: Crear usuario
+  mysql_user:
+    name: "{{ icinga2_mysql_user }}"
+    password: "{{ icinga2_mysql_pass }}"
+    host: localhost
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    priv: "{{ icinga2_mysql_db }}.*:ALL"
+
+- name: Comprobar si la base de datos esta vacia
+  shell: mysql -e "show tables from {{ icinga2_mysql_db }}"
+  register: tables
+  changed_when: false
+
+- name: Insertar esquema sql
+  shell: mysql {{ icinga2_mysql_db }} < /usr/share/icinga2-ido-mysql/schema/mysql.sql
+  when: tables.stdout == ""
+
+- name: Configurar acceso ido-mysql
+  blockinfile:
+    path: /etc/icinga2/features-available/ido-mysql.conf
+    marker: "/* {mark} ANSIBLE BLOCK */"
+    content: |
+      object IdoMysqlConnection "ido-mysql-2" {
+        user = "{{ icinga2_mysql_user }}",
+        password = "{{ icinga2_mysql_pass }}",
+        host = "localhost",
+        database = "{{ icinga2_mysql_db }}"
+      }
+
+- name: Habilitar subsistema ido-mysql en icinga2
+  shell: icinga2 feature enable ido-mysql
+  changed_when: false
+
+- name: Reiniciar servicio icinga2
+  systemd:
+    name: icinga2
+    enabled: yes
+    state: restarted
+
+- name: Guardar datos de acceso en "{{ ansible_hostname }}.icinga2_mysql"
+  delegate_to: localhost
+  become: no
+  copy:
+    dest: "{{ ansible_hostname }}.icinga2_mysql"
+    content: |
+      ############################
+      DATOS IDO-MYSQL
+      ############################
+      DB:         {{ icinga2_mysql_db }}
+      Usuario:    {{ icinga2_mysql_user }}
+      Contraseña: {{ icinga2_mysql_pass }}
