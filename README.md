@@ -125,20 +125,124 @@ Icinga es un fork de Nagios y es compatible con versiones anteriores. Por lo tan
     sudo systemctl restart apache2
     ```
 
+## Instalación con Ansible
+
+Para simplificar la instalación hemos utilizado [Ansible](https://www.ansible.com/), que es un framework de automatización de tareas. En el directorio `icinga/ansible` se encuentra un script bash que realiza la instalación de Ansible y a continuación instala Icinga. 
+
+Para utilizar este método, clonaremos el repositorio de instalación en el servidor:
+
+```bash
+git clone https://github.com/asir-idp/icinga.git
+
+cd icinga
+
+./instalar-maestro.sh
+```
+
 ## Configuración
 
+Accedemos a Icinga Web desde el navegador usando la url "localhost/icingaweb2/setup":
 
+1. Introducimos el "Setup Token" que se encuentra en el fichero IDP.icingaweb2 en el directorio ansible:
 
+    <p>
+    <img width="760" height="400" src="screenshots/1.png">
+    </p>
 
+    <p>
+    <img width="760" height="210" src="screenshots/1.2.png">
+    </p>
 
+2. En el siguiente paso, introducimos los datos para configurar la base de datos para la interfaz web (Los datos a introducir se encuentran en el mismo fichero del paso anterior):
 
+    <p>
+    <img width="760" height="420" src="screenshots/2.png">
+    </p>
 
+3. En este paso, indicamos las credenciales que tendrá nuestro usuario administrador en Icinga Web 2:
 
+    <p>
+    <img width="760" height="300" src="screenshots/3.png">
+    </p>
 
+4. En este paso, introducimos los datos de acceso a la base de datos del módulo de MYSQL para Icinga:
 
+    <p>
+    <img width="760" height="420" src="screenshots/4.png">
+    </p>
 
+5. Introducimos los datos de acceso a la API remota:
 
+    <p>
+    <img width="760" height="320" src="screenshots/5.png">
+    </p>
+
+6. Comprobamos la configuración ha concluido satisfactoriamente:
+
+    <p>
+    <img width="760" height="320" src="screenshots/6.png">
+    </p>
+
+7. Accedemos con el usuario administrativo creado y comprobamos que funciona correctamente:
+
+    <p>
+    <img width="760" height="400" src="screenshots/7.png">
+    </p>
 
 ## Monitorización
+
+Icinga2 soporta distintos tipos de monitorización:
+
+* Maestro único
+* Maestro - clientes
+* Maestro - satélite - clientes
+
+Y cada uno de estos tipos soporta varios modos de funcionamiento.
+
+En nuestro caso hemos elegido el tipo más común que es el de Maestro único. En este modo, un maestro Icinga comprueba los servicios remotos en los nodos de la red.
+
+Para configurar este modo editaremos el fichero `/etc/icinga2/conf.d/hosts.conf` y añadiremos los hosts que queremos monitorizar, como por ejemplo:
+
+```
+object Host "NombreNodo" {
+    import "generic-host"
+    address = "192.168.0.5"
+}
+```
+
+<p>
+<img width="660" height="300" src="screenshots/hosts.png">
+</p>
+
+Y ahora editamos el fichero `/etc/icinga2/conf.d/services.conf` para añadir los servicios que queremos monitorizar, como por ejemplo:
+
+```
+object Service "ssh" {
+    host_name = "NombreNodo"
+    check_command = "ssh"
+}
+```
+Con este ejemplo, hemos usado el módulo `ssh` de Icinga para monitorizar el puerto 22 de ssh así como obtener información básica del servicio en este host en concreto.
+
+Si quisieramos que ese servicio se comprobase en todos los hosts, utilizariamos la siguiente sintaxis:
+
+```
+apply Service "ssh" {
+    check_command = "ssh"
+    assign where host.address
+}
+```
+
+Con este ejemplo hemos utilizado la directiva `apply` para monitorizar el servicio `ssh` en todos los hosts que tengan definida una dirección IP en nuestra configuración.
+
+Repetiremos este paso tantas veces como servicios queremos monitorizar.
+
+<p>
+<img width="660" height="200" src="screenshots/hosts1.png">
+</p>
+
+<p>
+<img width="660" height="200" src="screenshots/hosts2.png">
+</p>
 
 ## Notificaciones
