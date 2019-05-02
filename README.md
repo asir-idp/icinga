@@ -203,7 +203,7 @@ En nuestro caso hemos elegido el tipo más común que es el de Maestro único. E
 
 Para configurar este modo editaremos el fichero `/etc/icinga2/conf.d/hosts.conf` y añadiremos los hosts que queremos monitorizar, como por ejemplo:
 
-```
+```diff
 object Host "NombreNodo" {
     import "generic-host"
     address = "192.168.0.5"
@@ -255,7 +255,7 @@ sudo apt-get install postfix mailutils
 
 Una vez hecho esto, podemos editar el fichero `/etc/icinga2/conf.d/users.conf` y modificar el atributo **email** del usuario por defecto **icingaadmin**
 
-```vim
+```
 object User "icingaadmin" {
   import "generic-user"
 
