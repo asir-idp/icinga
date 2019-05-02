@@ -276,14 +276,12 @@ Ahora, debemos añadir el siguiente atributo a cada uno de los hosts de los que 
 vars.notification["mail"] = {
     groups = [ "icingaadmins" ]
 }
-
 ```
 
 Y reiniciamos el servicio
 
 ```bash
 sudo systemctl restart icinga2
-
 ```
 
 Ejemplo de notificación recibido en el momento que el servicio **ssh** del host **PC-Javi** ha fallado.
