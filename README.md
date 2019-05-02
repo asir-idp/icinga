@@ -270,9 +270,24 @@ object UserGroup "icingaadmins" {
 }
 ```
 
+Ahora, debemos añadir el siguiente atributo a cada uno de los hosts de los que queremos recibir notificaciones:
+
+```
+vars.notification["mail"] = {
+    groups = [ "icingaadmins" ]
+}
+
+```
+
 Y reiniciamos el servicio
 
 ```bash
 sudo systemctl restart icinga2
 
 ```
+
+Ejemplo de notificación recibido en el momento que el servicio **ssh** del host **PC-Javi** ha fallado.
+
+<p>
+<img width="760" height="400" src="screenshots/notificacion.png">
+</p>
