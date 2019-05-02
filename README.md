@@ -255,7 +255,7 @@ sudo apt-get install postfix mailutils
 
 Una vez hecho esto, podemos editar el fichero `/etc/icinga2/conf.d/users.conf` y modificar el atributo **email** del usuario por defecto **icingaadmin**
 
-```
+```javascript
 object User "icingaadmin" {
   import "generic-user"
 
