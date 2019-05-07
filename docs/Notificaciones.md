@@ -39,6 +39,6 @@ sudo systemctl restart icinga2
 
 Ejemplo de notificación recibido en el momento que el servicio **ssh** del host **PC-Javi** ha fallado.
 
-![](../screenshots/notificacion.png)
+![](screenshots/notificacion.png)
 
 [Volver](..)

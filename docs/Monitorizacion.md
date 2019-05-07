@@ -19,7 +19,7 @@ object Host "NombreNodo" {
 }
 ```
 
-![](../screenshots/hosts.png)
+![](screenshots/hosts.png)
 
 Y ahora editamos el fichero `/etc/icinga2/conf.d/services.conf` para añadir los *servicios* que queremos monitorizar, como por ejemplo:
 
@@ -44,8 +44,8 @@ Con este ejemplo hemos utilizado la directiva `apply` para monitorizar el servic
 
 Repetiremos este paso tantas veces como servicios queremos monitorizar.
 
-![](../screenshots/hosts1.png)
+![](screenshots/hosts1.png)
 
-![](../screenshots/hosts2.png)
+![](screenshots/hosts2.png)
 
 [Volver](..)
