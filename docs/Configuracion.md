@@ -30,4 +30,4 @@ Accedemos a **Icinga Web** desde el navegador usando la url "localhost/icingaweb
 
 ![](screenshots/7.png)
 
-[Volver](..)
+[Volver](home.md)

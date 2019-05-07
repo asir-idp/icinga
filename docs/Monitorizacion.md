@@ -48,4 +48,4 @@ Repetiremos este paso tantas veces como servicios queremos monitorizar.
 
 ![](screenshots/hosts2.png)
 
-[Volver](..)
+[Volver](home.md)

@@ -12,4 +12,4 @@ cd icinga
 ./instalar-maestro.sh
 ```
 
-[Volver](..)
+[Volver](home.md)

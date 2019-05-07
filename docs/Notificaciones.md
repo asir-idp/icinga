@@ -41,4 +41,4 @@ Ejemplo de notificación recibido en el momento que el servicio **ssh** del host
 
 ![](screenshots/notificacion.png)
 
-[Volver](..)
+[Volver](home.md)
