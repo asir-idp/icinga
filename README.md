@@ -145,6 +145,8 @@ Accedemos a **Icinga Web** desde el navegador usando la url "localhost/icingaweb
 
 1. *Introducimos el **"Setup Token"** que se encuentra en el fichero **IDP.icingaweb2** en el directorio ansible:*
 
+    ![smiley](screenshots/1.png){:height="760px" width="400px"}
+
     <p>
     <img width="760" height="400" src="screenshots/1.png">
     </p>
