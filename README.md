@@ -146,46 +146,30 @@ Accedemos a **Icinga Web** desde el navegador usando la url "localhost/icingaweb
 1. *Introducimos el **"Setup Token"** que se encuentra en el fichero **IDP.icingaweb2** en el directorio ansible:*
 
 ![](screenshots/1.png)
-    
-    <p>
-    <img width="760" height="210" src="screenshots/1.2.png">
-    </p>
 
 2. *En el siguiente paso, introducimos los datos para configurar la base de datos para la interfaz web (Los datos a introducir se encuentran en el mismo fichero del paso anterior):*
 
-    <p>
-    <img width="760" height="420" src="screenshots/2.png">
-    </p>
+![](screenshots/2.png)
 
 3. *En este paso, indicamos las credenciales que tendrá nuestro **usuario administrador** en Icinga Web 2:*
 
-    <p>
-    <img width="760" height="300" src="screenshots/3.png">
-    </p>
+![](screenshots/3.png)
 
 4. *En este paso, introducimos los datos de acceso a la base de datos del módulo de **MYSQL** para Icinga:*
 
-    <p>
-    <img width="760" height="420" src="screenshots/4.png">
-    </p>
+![](screenshots/4.png)
 
 5. *Introducimos los datos de acceso a la **API remota**:*
 
-    <p>
-    <img width="760" height="320" src="screenshots/5.png">
-    </p>
+![](screenshots/5.png)
 
 6. *Comprobamos la configuración ha concluido satisfactoriamente:*
 
-    <p>
-    <img width="760" height="320" src="screenshots/6.png">
-    </p>
+![](screenshots/6.png)
 
 7. *Accedemos con el usuario administrativo creado y comprobamos que funciona correctamente:*
 
-    <p>
-    <img width="760" height="400" src="screenshots/7.png">
-    </p>
+![](screenshots/7.png)
 
 ## Monitorización
 
@@ -208,9 +192,7 @@ object Host "NombreNodo" {
 }
 ```
 
-<p>
-<img width="660" height="300" src="screenshots/hosts.png">
-</p>
+![](screenshots/hosts.png)
 
 Y ahora editamos el fichero `/etc/icinga2/conf.d/services.conf` para añadir los *servicios* que queremos monitorizar, como por ejemplo:
 
@@ -235,13 +217,9 @@ Con este ejemplo hemos utilizado la directiva `apply` para monitorizar el servic
 
 Repetiremos este paso tantas veces como servicios queremos monitorizar.
 
-<p>
-<img width="660" height="200" src="screenshots/hosts1.png">
-</p>
+![](screenshots/hosts1.png)
 
-<p>
-<img width="660" height="200" src="screenshots/hosts2.png">
-</p>
+![](screenshots/hosts2.png)
 
 ## Notificaciones
 
@@ -284,6 +262,4 @@ sudo systemctl restart icinga2
 
 Ejemplo de notificación recibido en el momento que el servicio **ssh** del host **PC-Javi** ha fallado.
 
-<p>
-<img width="760" height="400" src="screenshots/notificacion.png">
-</p>
+![](screenshots/notificacion.png)
