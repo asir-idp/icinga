@@ -11,7 +11,7 @@
 
 **Trabajo realizado por:**
 
-* Javier Valencia Rodríguez*
-* Cristian Santos Guillén*
-* Abraham Ramos Martín*
-* Adrían Josué González Rodríguez* 
+* *Javier Valencia Rodríguez*
+* *Cristian Santos Guillén*
+* *Abraham Ramos Martín*
+* *Adrían Josué González Rodríguez*
