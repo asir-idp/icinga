@@ -4,4 +4,4 @@
 
 **Icinga** es un *fork de Nagios* y es compatible con versiones anteriores. Por lo tanto, la configuración de Nagios, plugins y addons se pueden usar con Icinga. Aunque Icinga conserva todas las características existentes de su predecesor, se basa en ellos para añadir muchas funcionalidades que no se encuentran en Nagios y características solicitadas por la comunidad de usuarios.
 
-[Volver](..)
+<a href="#" onclick="javascript:window.history.back();">Volver</a>
