@@ -4,7 +4,7 @@ Trabajo de 1ºASIR de IES Domingo Pérez Minik, sobre instalación y configuraci
 
 ## Documentación
 
-[Índice](docs/home.md)
+[Índice](docs/index.md)
 
 ## Colaboradores
 
