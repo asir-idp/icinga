@@ -7,7 +7,7 @@ Para utilizar este método, *clonaremos el repositorio de instalación* en el se
 ```bash
 git clone https://github.com/asir-idp/icinga.git
 
-cd icinga
+cd icinga/ansible
 
 ./instalar-maestro.sh
 ```
