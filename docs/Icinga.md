@@ -1,4 +1,4 @@
-## ¿Que és Icinga?
+## ¿Qué es Icinga?
 
 **Icinga** es un *sistema de monitorización opensource*, que controla cualquier recurso de la red, notifica al usuario los errores, genera datos de rendimiento para la presentación de informes e informa del estado de los recursos. Es *escalable* y *extensible*, Icinga puede controlar entornos complejos y grandes a través de lugares dispersos.
 
