@@ -1,12 +1,14 @@
 ## Notificaciones
 
-**Icinga 2** puede enviar notificaciones por email en caso de que un servicio no responda. Para ello podemos instalar un servidor de correo en la misma máquina. 
+**Icinga 2** puede enviar notificaciones por email en caso de que un servicio no responda. 
+Para ello podemos instalar un servidor de correo en la misma máquina. 
 
 ```bash
 sudo apt-get install postfix mailutils
 ```
 
-Una vez hecho esto, podemos editar el fichero `/etc/icinga2/conf.d/users.conf` y modificar el atributo **email** del usuario por defecto **icingaadmin**
+Una vez hecho esto, podemos editar el fichero `/etc/icinga2/conf.d/users.conf` y modificar el 
+atributo **email** del usuario por defecto **icingaadmin**
 
 ```
 object User "icingaadmin" {
@@ -23,7 +25,8 @@ object UserGroup "icingaadmins" {
 }
 ```
 
-Ahora, debemos añadir el siguiente atributo a cada uno de los hosts de los que queremos recibir notificaciones:
+Ahora, debemos añadir la siguiente variable a cada uno de los hosts y servicios de los que 
+queramos recibir notificaciones:
 
 ```
 vars.notification["mail"] = {
