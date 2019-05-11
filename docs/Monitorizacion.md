@@ -95,6 +95,8 @@ object Service "nsclient-disk" {
 }
 ```
 
+![](screenshots/windows.png)
+
 ### Monitorización de sistemas Linux
 
 Podemos aprovechar el protocolo SSH para monitorizar sistemas Linux. Para ello usaremos el módulo **by_ssh** de Icinga.
@@ -123,5 +125,7 @@ object Service "ssh-disk" {
 	}
 }
 ```
+
+![](screenshots/linux.png)
 
 [Volver](index.md)
